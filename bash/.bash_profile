@@ -14,10 +14,10 @@ export VAULT_ADDR='https://vault.ad.avant.com'
 export LINT_ENABLED=1
 
 # scm puff: shortcuts for git https://github.com/mroth/scmpuff
-eval "$(scmpuff init -s)"
+#eval "$(scmpuff init -s)"
 
 # aliases
-alias gb='git checkout $(git branch | fzf)' # easier git checkout
+# alias gb='git checkout $(git branch | fzf)' # easier git checkout
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
