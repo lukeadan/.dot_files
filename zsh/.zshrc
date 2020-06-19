@@ -115,4 +115,6 @@ eval "$(scmpuff init -s)"
 alias gswitch='git checkout $(git branch | fzf)' # easier git checkout
 alias vim='nvim'
 alias lintdiff='git diff --name-status master | xargs rubocop --force-exclusion'
+alias ctags="`brew --prefix`/bin/ctags"
+
  
