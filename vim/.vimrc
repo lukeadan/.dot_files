@@ -10,6 +10,9 @@ Plug 'rafi/awesome-vim-colorschemes'
 " directory tree
 Plug 'scrooloose/nerdtree'
 
+" automatically add ends for ruby
+Plug 'tpope/vim-endwise'
+
 " git visual queues
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
@@ -17,16 +20,55 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
+" commenting plugin
+Plug 'tpope/vim-commentary' 
+
+" closing of parenthisis
+Plug 'jiangmiao/auto-pairs'
+
 " ruby plugin
 Plug 'vim-ruby/vim-ruby'
 
 " rails plugin
 Plug 'tpope/vim-rails'
 
+" git conflict resolution
+Plug 'tpope/vim-fugitive'
+Plug 'christoomey/vim-conflicted'
+" git conflict resolution
+
 " neocomplete Plugin
 Plug 'Shougo/neocomplete.vim'  
 
+" asynchronous Linter
+Plug 'dense-analysis/ale'
+
+" vim tmux navigation
+Plug 'christoomey/vim-tmux-navigator'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 call plug#end()
+
+" python provider
+let g:python3_host_prog = '/Users/lukedanielson/.asdf/shims/python'
+" python provider
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+"
+" deoplete
+
+" ale 
+let g:ale_fix_on_save = 1
+let g:ale_linters_explicit = 1
+" ale
 
 " colorscheme
 colorscheme gruvbox
@@ -38,7 +80,7 @@ nnoremap <silent> <C-z> :FZF<CR>
  
 """""""""""""""""""""""""""""" nerd tree settings
 " open nerdtree automatically when vim starts up
-autocmd vimenter * NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
 
 " open nerdtree with ctrl-n
 map <C-n> :NERDTreeToggle<CR>
@@ -49,8 +91,9 @@ map <leader>r :NERDTreeFind<cr>
 " close vim if last window open is nerdtree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-
-"autocmd BufWinEnter * NERDTreeFind
+" opens current file in the tree 
+" autocmd bufenter * :NERDTreeFind<CR>
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 
 " pressing this inside any open file in vim will jump to the nerdtree and highlight where that file is -> very useful when you have multiple files open at once
 map ] :NERDTreeFind<CR> 
