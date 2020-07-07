@@ -116,5 +116,6 @@ alias gswitch='git checkout $(git branch | fzf)' # easier git checkout
 alias vim='nvim'
 alias lintdiff='git diff --name-status master | xargs rubocop --force-exclusion'
 alias ctags="`brew --prefix`/bin/ctags"
+alias fixcops='git diff --cached --name-only --diff-filter=ACM | xargs bundle exec rubocop --force-exclusion --display-style-guide -a'
 
  

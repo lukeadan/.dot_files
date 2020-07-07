@@ -1,3 +1,7 @@
+" TODO: fix blockle
+" TODO: fix tmux vim navigator
+" TODO: fix ALE
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -46,6 +50,12 @@ Plug 'dense-analysis/ale'
 " vim tmux navigation
 Plug 'christoomey/vim-tmux-navigator'
 
+" git blame
+Plug 'zivyangll/git-blame.vim'
+
+" toggle {} -> do end ruby
+" Plug 'jgdavey/vim-blockle'
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -57,7 +67,22 @@ endif
 " testing plugin
 Plug 'vim-test/vim-test'
 
+" tmux vim
+Plug 'benmills/vimux'
+
+" todo lists for .todo
+Plug 'aserebryakov/vim-todo-lists'
+
 call plug#end()
+
+"vim test
+" make test commands execute using dispatch.vim
+let test#strategy = "vimux"
+"vim test
+
+" git blame
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+" git blame
 
 " python provider
 let g:python3_host_prog = '/Users/lukedanielson/.asdf/shims/python'
@@ -65,7 +90,9 @@ let g:python3_host_prog = '/Users/lukedanielson/.asdf/shims/python'
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-"
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " deoplete
 
 " ale 
@@ -82,6 +109,8 @@ nnoremap <silent> <C-z> :FZF<CR>
 " fzf settings 
  
 """""""""""""""""""""""""""""" nerd tree settings
+let g:NERDTreeWinSize=30
+
 " open nerdtree automatically when vim starts up
 autocmd vimenter * if !argc() | NERDTree | endif
 
@@ -132,6 +161,12 @@ endfunction
 autocmd BufEnter * call SyncTree()
 """""""""""""""""""""""""""""" nerd tree settings
 
+" remap tab navigation
+map <C-t><up> :tabr<cr>
+map <C-t><down> :tabl<cr>
+map <C-t><left> :tabp<cr>
+map <C-t><right> :tabn<cr>
+" remap tab navigation
  
 " remap swapping panes to ctl-letter
 nnoremap <C-J> <C-W><C-J>
@@ -149,8 +184,12 @@ noremap <Right> <NOP>
 
 " toggles
 syntax on
+set diffopt+=vertical " opens diffs vertical"
 set number
 set autoread " autoreloads files
+set autowrite " writes automatically to buffers"
+set hidden " hides buffers when entering and leaving"
+" set foldmethod=indent
 filetype plugin indent on
 filetype on
 filetype indent on
@@ -160,8 +199,9 @@ filetype indent on
 autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
 autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
 " auto commands
+" macros
+" macros
 
 " ctags 
 set tags=tags
 " ctags 
-
